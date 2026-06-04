@@ -8,8 +8,11 @@
   "postCreateCommand": "container setup",
   "remoteUser": "vscode",
   "mounts": [
-    "source=${localWorkspaceFolder},target=/config/www/workspace,type=bind,consistency=cached"
+    "source=${localWorkspaceFolder}/workspace,target=/config/www/workspace,type=bind,consistency=cached"
   ],
+  "containerEnv": {
+    "LOVELACE_LOCAL_FILES": "my-custom-card.js"
+  },
   "customizations": {
     "vscode": {
       "extensions": [

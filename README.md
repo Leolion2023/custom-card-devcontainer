@@ -4,7 +4,7 @@ A devcontainer for developing and testing Home Assistant custom cards.
 
 ## Features
 
-- Latest Home Assistant installed from PyPI
+- Latest Home Assistant dev version installed from PyPI
 - [HACS](https://hacs.xyz) installed automatically (skipped if already up to date)
 - Node.js LTS via nvm for building and bundling cards
 - Fast Python dependency installation via [uv](https://github.com/astral-sh/uv)
@@ -12,6 +12,15 @@ A devcontainer for developing and testing Home Assistant custom cards.
 - Compatible with GitHub Codespaces and VS Code Dev Containers
 
 ## Usage
+
+### Developing Custom Cards Locally in this Repo
+
+To get started quickly with your own custom cards in this repository:
+
+1. Place your custom card files (like `.js` files) inside the `workspace/` directory.
+2. We've included a sample `workspace/my-custom-card.js`.
+3. The `.devcontainer/devcontainer.json` and `docker-compose.yml` are already configured to map the `workspace/` folder into the container and register `my-custom-card.js` via the `LOVELACE_LOCAL_FILES` environment variable.
+4. If you add more files, just update `LOVELACE_LOCAL_FILES` in `.devcontainer/devcontainer.json` or `docker-compose.yml`.
 
 ### GitHub Codespaces / VS Code Dev Containers
 
@@ -59,6 +68,13 @@ docker run --rm -it \
     -v $(pwd):/config/www/workspace \
     -e LOVELACE_LOCAL_FILES="my-card.js" \
     ghcr.io/custom-cards/custom-card-devcontainer
+```
+
+### Docker Compose
+
+```bash
+mkdir -p config
+docker compose up --build
 ```
 
 ## Environment Variables
