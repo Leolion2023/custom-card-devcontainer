@@ -4,7 +4,7 @@ A devcontainer for developing and testing Home Assistant custom cards.
 
 ## Features
 
-- Latest Home Assistant installed from PyPI
+- Latest Home Assistant dev version installed from PyPI
 - [HACS](https://hacs.xyz) installed automatically (skipped if already up to date)
 - Node.js LTS via nvm for building and bundling cards
 - Fast Python dependency installation via [uv](https://github.com/astral-sh/uv)

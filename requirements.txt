@@ -1,1 +1,1 @@
-homeassistant>=2024.1.0
+homeassistant @ git+https://github.com/home-assistant/core.git@dev

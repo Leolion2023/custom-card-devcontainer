@@ -41,7 +41,7 @@ RUN uv venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 COPY requirements.txt /tmp/requirements.txt
-RUN uv pip install -r /tmp/requirements.txt
+RUN uv pip install --prerelease allow -r /tmp/requirements.txt
 
 COPY --chmod=0755 container /usr/local/bin/container
 COPY --chmod=0755 hassfest /usr/local/bin/hassfest
