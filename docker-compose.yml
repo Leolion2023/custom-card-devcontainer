@@ -5,5 +5,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8123:8123"
+    environment:
+      - LOVELACE_LOCAL_FILES=my-custom-card.js
     volumes:
       - ./config:/config
+      - ./workspace:/config/www/workspace
