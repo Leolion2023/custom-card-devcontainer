@@ -1,0 +1,9 @@
+services:
+  devcontainer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8123:8123"
+    volumes:
+      - ./config:/config

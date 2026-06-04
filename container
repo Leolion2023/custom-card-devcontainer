@@ -1,5 +1,21 @@
 #!/bin/bash
 
+if [[ -f "/home/vscode/.local/ha-venv/bin/activate" ]]; then
+    source /home/vscode/.local/ha-venv/bin/activate
+fi
+
+function ensure_config_permissions() {
+    mkdir -p /config
+
+    if [[ ! -w /config ]]; then
+        sudo chown -R vscode:vscode /config 2>/dev/null || true
+        sudo chmod -R u+rwX /config 2>/dev/null || true
+    fi
+
+    mkdir -p /config/.storage
+    mkdir -p /config/custom_components
+}
+
 function ensure_hass_config() {
     hass --script ensure_config -c /config
 }
@@ -96,6 +112,7 @@ PYEOF
 }
 
 function setup() {
+    ensure_config_permissions
     ensure_hass_config
     create_hass_user
     bypass_onboarding

@@ -46,4 +46,11 @@ RUN uv pip install -r /tmp/requirements.txt
 COPY --chmod=0755 container /usr/local/bin/container
 COPY --chmod=0755 hassfest /usr/local/bin/hassfest
 
-CMD ["sudo", "-E", "container"]
+USER root
+RUN mkdir -p /config \
+    && chown -R vscode:vscode /config \
+    && echo "vscode ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/vscode \
+    && chmod 0440 /etc/sudoers.d/vscode
+
+USER vscode
+CMD ["container"]

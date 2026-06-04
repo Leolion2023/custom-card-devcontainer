@@ -61,6 +61,13 @@ docker run --rm -it \
     ghcr.io/custom-cards/custom-card-devcontainer
 ```
 
+### Docker Compose
+
+```bash
+mkdir -p config
+docker compose up --build
+```
+
 ## Environment Variables
 
 | Name | Description | Default |
