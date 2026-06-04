@@ -13,6 +13,15 @@ A devcontainer for developing and testing Home Assistant custom cards.
 
 ## Usage
 
+### Developing Custom Cards Locally in this Repo
+
+To get started quickly with your own custom cards in this repository:
+
+1. Place your custom card files (like `.js` files) inside the `workspace/` directory.
+2. We've included a sample `workspace/my-custom-card.js`.
+3. The `.devcontainer/devcontainer.json` and `docker-compose.yml` are already configured to map the `workspace/` folder into the container and register `my-custom-card.js` via the `LOVELACE_LOCAL_FILES` environment variable.
+4. If you add more files, just update `LOVELACE_LOCAL_FILES` in `.devcontainer/devcontainer.json` or `docker-compose.yml`.
+
 ### GitHub Codespaces / VS Code Dev Containers
 
 This repository includes a `.devcontainer/devcontainer.json` you can use directly or adapt for your own project.
