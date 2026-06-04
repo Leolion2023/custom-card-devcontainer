@@ -1,9 +1,8 @@
-FROM mcr.microsoft.com/devcontainers/python:1-3.13
+FROM python:3.14-bookworm
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN rm -f /etc/apt/sources.list.d/yarn.list \
-    && apt-get update \
+RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         bluez \
         libffi-dev \
@@ -23,17 +22,24 @@ RUN rm -f /etc/apt/sources.list.d/yarn.list \
         git \
         libpcap-dev \
         unzip \
+        curl \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    && source /usr/local/share/nvm/nvm.sh \
-    && nvm install --lts \
-    && pip install --upgrade wheel pip uv
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js LTS via nodeenv
+RUN pip install --upgrade wheel pip uv nodeenv \
+    && nodeenv /opt/nodejs --node=lts \
+    && rm -rf /root/.cache
+
+ENV PATH="/opt/nodejs/bin:$PATH"
 
 COPY --from=ghcr.io/alexxit/go2rtc:latest /usr/local/bin/go2rtc /bin/go2rtc
 
 EXPOSE 8123
 
 VOLUME /config
+
+RUN useradd -m -s /bin/bash vscode
 
 USER vscode
 ENV VIRTUAL_ENV="/home/vscode/.local/ha-venv"
@@ -46,11 +52,4 @@ RUN uv pip install --prerelease allow -r /tmp/requirements.txt
 COPY --chmod=0755 container /usr/local/bin/container
 COPY --chmod=0755 hassfest /usr/local/bin/hassfest
 
-USER root
-RUN mkdir -p /config \
-    && chown -R vscode:vscode /config \
-    && echo "vscode ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/vscode \
-    && chmod 0440 /etc/sudoers.d/vscode
-
-USER vscode
 CMD ["container"]
